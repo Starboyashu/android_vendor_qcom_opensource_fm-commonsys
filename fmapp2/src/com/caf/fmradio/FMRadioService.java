@@ -612,23 +612,23 @@ public class FMRadioService extends Service
                 // and we don't get chance to disable Hardware LoopBack.
                 Log.d(LOGTAG," FM HardwareLoopBack Active, disable it first");
                 status =  AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_FM,
-                              AudioSystem.DEVICE_STATE_UNAVAILABLE, "", "");
+                              AudioSystem.DEVICE_STATE_UNAVAILABLE, "", "", AudioSystem.AUDIO_FORMAT_DEFAULT);
                 mCurrentDevice = AudioDeviceInfo.TYPE_WIRED_HEADSET;
             }
             status = AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_FM,
-                                          AudioSystem.DEVICE_STATE_AVAILABLE, "", "");
+                                          AudioSystem.DEVICE_STATE_AVAILABLE, "", "", AudioSystem.AUDIO_FORMAT_DEFAULT);
             if (status != AudioSystem.SUCCESS) {
                 success = false;
                 Log.e(LOGTAG, "configureFMDeviceLoopback failed! status:" + status);
                 AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_FM,
-                                     AudioSystem.DEVICE_STATE_UNAVAILABLE, "", "");
+                                     AudioSystem.DEVICE_STATE_UNAVAILABLE, "", "", AudioSystem.AUDIO_FORMAT_DEFAULT);
                 mCurrentDevice = AudioDeviceInfo.TYPE_UNKNOWN;
             } else {
                 mIsFMDeviceLoopbackActive = true;
             }
         } else if (!enable && mIsFMDeviceLoopbackActive == true) {
             AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_FM,
-                                 AudioSystem.DEVICE_STATE_UNAVAILABLE, "", "");
+                                 AudioSystem.DEVICE_STATE_UNAVAILABLE, "", "", AudioSystem.AUDIO_FORMAT_DEFAULT);
             mIsFMDeviceLoopbackActive = false;
             mCurrentDevice = AudioDeviceInfo.TYPE_UNKNOWN;
         }
